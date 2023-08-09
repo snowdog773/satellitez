@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   data: [],
   hasApiFailed: false,
+  iss: [],
 };
 
 export const getData = createAsyncThunk("data/callAPI", async () => {
@@ -15,7 +16,11 @@ export const getData = createAsyncThunk("data/callAPI", async () => {
 export const dataSlice = createSlice({
   name: "data",
   initialState,
-  reducers: {},
+  reducers: {
+    setIss: (state, action) => {
+      state.iss.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getData.pending, (state) => {
       state.isLoading = true;
@@ -34,5 +39,5 @@ export const dataSlice = createSlice({
     });
   },
 });
-
+export const { setIss } = dataSlice.actions;
 export default dataSlice.reducer;
