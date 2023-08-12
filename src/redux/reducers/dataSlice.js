@@ -5,6 +5,8 @@ const initialState = {
   data: [],
   hasApiFailed: false,
   iss: [],
+  issTrue: false,
+  renderArray: [],
 };
 
 export const getData = createAsyncThunk("data/callAPI", async () => {
@@ -19,6 +21,10 @@ export const dataSlice = createSlice({
   reducers: {
     setIss: (state, action) => {
       state.iss.push(action.payload);
+      state.issTrue = true;
+    },
+    setRenderData: (state, action) => {
+      state.renderArray = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -39,5 +45,5 @@ export const dataSlice = createSlice({
     });
   },
 });
-export const { setIss } = dataSlice.actions;
+export const { setIss, setRenderData } = dataSlice.actions;
 export default dataSlice.reducer;
