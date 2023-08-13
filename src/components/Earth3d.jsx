@@ -1,39 +1,56 @@
 import Globe from "react-globe.gl";
 import globeWrap from "../assets/globewrap.jpg";
+import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { satPositionCalc } from "../utils/satPositionCalc";
 
 const Earth3d = () => {
   const rawTle = useSelector((state) => state.data.iss);
-  const issTrue = useSelector((state) => state.data.issTrue);
+  const [satPosition, setSatPostition] = useState();
+  // const [minutes, setMinutes] = useState(0);
+  const minutes = useRef(0);
+  const globeAttributes = useRef();
 
-  if (issTrue) {
-    const outputArray = [];
-    rawTle.forEach((item) => {
-      const output = satPositionCalc(item); //converts the raw tle data to lat lng alt
+  useEffect(() => {
+    const globe = globeAttributes.current;
+    // Auto-rotate
+    globe.controls().autoRotate = true;
+    globe.controls().autoRotateSpeed = 0.35;
+  }, []);
 
-      outputArray.push(output);
-    });
+  useEffect(() => {
+    const timer = setInterval(() => {
+      let outputArray = [];
+      rawTle.forEach((item) => {
+        const output = satPositionCalc(item, minutes.current); //converts the raw tle data to lat lng alt
+        outputArray.push(output);
+      });
 
-    return (
-      <>
-        <Globe
-          // showGraticules={true}
-          globeImageUrl={globeWrap}
-          objectsData={outputArray}
-          objectLat="lat"
-          objectLng="lng"
-          objectAltitude="alt"
-          objectLabel="name"
-          // objectThreeObject={satObject}
-          // pointsData={gData}
-          // pointAltitude="size"
-          // pointColor="color"
-        />
-      </>
-    );
-  } else return <>Waiting for data</>;
+      setSatPostition(outputArray);
+      minutes.current += 0.1;
+    }, 50);
+    return () => clearInterval(timer);
+  }, [minutes.current]);
+
+  return (
+    <>
+      {minutes.current}
+      <Globe
+        ref={globeAttributes}
+        // showGraticules={true}
+        globeImageUrl={globeWrap}
+        objectsData={satPosition} //this data doesn't like coming from redux
+        objectLat="lat"
+        objectLng="lng"
+        objectAltitude="alt"
+        objectLabel="name"
+        // labelsData={satPosition}
+        // labelLat="lat"
+        // objectThreeObject={satObject}
+      />
+    </>
+  );
 };
 
 export default Earth3d;

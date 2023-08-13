@@ -1,5 +1,5 @@
 import epochTimeCalc from "./epochTimeCalc";
-export const satPositionCalc = (input) => {
+export const satPositionCalc = (input, minutes) => {
   const tleArray = input.tle.split("\r\n");
 
   //get minutes since TLE reading
@@ -12,7 +12,7 @@ export const satPositionCalc = (input) => {
     d.getUTCDate(),
     d.getUTCHours(),
     d.getUTCMinutes(),
-    d.getUTCSeconds(),
+    d.getUTCSeconds() + minutes * 60,
     d.getUTCMilliseconds()
   );
 
@@ -24,7 +24,7 @@ export const satPositionCalc = (input) => {
   //get cartesian position and velocity data
   const posVel = satellite.sgp4(satrec, epochTime); //calculates position and vel at minutes after TLE reading
   //convert from cartesian to geodetic (long, lat, alt)
-  const gmst = satellite.gstime(d);
+  const gmst = satellite.gstime(timeNow);
   //gmst - adjust for sidereal time
   const posGd = satellite.eciToGeodetic(posVel.position, gmst);
 
@@ -33,7 +33,9 @@ export const satPositionCalc = (input) => {
   const latDeg = (posGd.latitude * 180) / Math.PI;
   const altitude = posGd.height;
   return {
-    name: input.info.satname,
+    name: `${input.info.satname} longitude : ${longDeg.toFixed(
+      2
+    )} \n latitude : ${latDeg.toFixed(2)} \n altitude ${altitude.toFixed(2)}km`,
     lat: latDeg,
     lng: longDeg,
     alt: altitude / 6371,

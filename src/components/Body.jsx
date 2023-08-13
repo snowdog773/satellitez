@@ -6,6 +6,7 @@ import { setIss } from "../redux/reducers/dataSlice";
 
 const Body = () => {
   const dispatch = useDispatch();
+  const issTrue = useSelector((state) => state.data.issTrue);
 
   useEffect(() => {
     const getISSData = async () => {
@@ -17,10 +18,6 @@ const Body = () => {
     getISSData();
   }, []);
 
-  return (
-    <div id="globe">
-      <Earth3d />
-    </div>
-  );
+  return <div id="globe">{issTrue && <Earth3d />}</div>;
 };
 export default Body;
