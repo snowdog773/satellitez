@@ -1,5 +1,19 @@
-#globe {
-  height: 500px;
+#header-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#menu {
+  width: 20px;
+  height: 20px;
+}
 
-  /* background-color: aqua; */
+#menu img {
+  width: 100%;
+}
+
+#globe .scene-container {
+  display: block;
+  margin: 0 auto;
 }

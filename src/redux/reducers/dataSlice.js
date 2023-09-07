@@ -20,7 +20,7 @@ export const dataSlice = createSlice({
   initialState,
   reducers: {
     setIss: (state, action) => {
-      state.iss.push(action.payload);
+      state.iss = action.payload;
       state.issTrue = true;
     },
     setRenderData: (state, action) => {

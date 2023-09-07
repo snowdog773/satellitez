@@ -1,7 +1,10 @@
 export default function epochTimeCalc(rawTLE, timeNow) {
   //extract date & time element
+
   const split = rawTLE.split(" ");
+
   const rawEpoch = split[5];
+
   const year = parseInt(rawEpoch.slice(0, 2));
   const daysArray = rawEpoch.slice(2).split(".");
   const days = parseInt(daysArray[0]);

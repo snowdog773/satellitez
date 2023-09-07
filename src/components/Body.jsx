@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import Earth3d from "./Earth3d";
+import GlobeControls from "./GlobeControls";
 import { useDispatch, useSelector } from "react-redux";
 import { setIss } from "../redux/reducers/dataSlice";
 
@@ -18,6 +19,11 @@ const Body = () => {
     getISSData();
   }, []);
 
-  return <div id="globe">{issTrue && <Earth3d />}</div>;
+  return (
+    <>
+      <div id="globe">{issTrue && <Earth3d />}</div>
+      <GlobeControls />
+    </>
+  );
 };
 export default Body;
