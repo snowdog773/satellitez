@@ -11,8 +11,10 @@ const Body = () => {
 
   useEffect(() => {
     const getISSData = async () => {
-      const { data } = await axios.get("http://localhost:6001/getVisibleSats");
-
+      const { data } = await axios.get(
+        "http://localhost:6001/getSatellites/last30days"
+      );
+      console.log(data);
       dispatch(setIss(data));
     };
 

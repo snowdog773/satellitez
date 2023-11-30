@@ -32,13 +32,13 @@ const Earth3d = () => {
 
       setSatPostition(outputArray);
       minutes.current += 0.1;
-    }, 50);
+    }, 1000);
     return () => clearInterval(timer);
   }, [minutes.current]);
 
   return (
     <>
-      {minutes.current}
+      <p>Minutes passed :{Math.floor(minutes.current)}</p>
       <Globe
         ref={globeAttributes}
         // showGraticules={true}

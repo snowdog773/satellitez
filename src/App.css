@@ -1,8 +1,18 @@
+body {
+  background-color: #001;
+
+  color: #fff;
+}
+h1 {
+  margin: auto;
+}
 #header-wrapper {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  text-align: center;
 }
 #menu {
   width: 20px;
