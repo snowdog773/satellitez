@@ -1,16 +1,16 @@
 export const satFilters = [
-  { group: "Last 30 Days Launches", query: "last-30-days" },
-  { group: "Space Stations", query: "stations" },
-  { group: "Brightest / Most Visible", query: "visual" },
-  { group: "All Active Satellites", query: "active" },
-  { group: "Analyst Satellites", query: "analyst" },
+  { group: "Last 30 Days Launches", query: "last-30-days" }, //
+  { group: "Space Stations", query: "stations" }, //
+  { group: "Brightest / Most Visible", query: "visual" }, //
+  { group: "All Active Satellites", query: "active" }, //
+  // { group: "Analyst Satellites", query: "analyst" },
   {
     group: "Russian Anti Satellite Test Debris COSMOS 1408",
     query: "1982-092",
-  },
-  { group: "Chinese Anti Satellite Test Debris FENGYUN 1C", query: "1999-025" },
-  { group: "Iridium 33 Debris", query: "iridium-33-debris" },
-  { group: "COSMOS 2251 Debris", query: "cosmos-2251-debris" },
+  }, //
+  { group: "Chinese Anti Satellite Test Debris FENGYUN 1C", query: "1999-025" }, //
+  { group: "Iridium 33 Debris", query: "iridium-33-debris" }, //
+  { group: "COSMOS 2251 Debris", query: "cosmos-2251-debris" }, //
   { group: "Weather Satellites", query: "weather" },
   { group: "National Oceanic and Atmospheric Administration", query: "noaa" },
   {
@@ -25,16 +25,16 @@ export const satFilters = [
   { group: "Planet", query: "planet" },
   { group: "Spire", query: "spire" },
   { group: "Active Geosynchronous", query: "geo" },
-  { group: "Geosynchronous Protected Zone", query: "gpz" },
-  { group: "Geosynchronous Protected Zone Plus", query: "gpz-plus" },
+  // { group: "Geosynchronous Protected Zone", query: "gpz" },
+  // { group: "Geosynchronous Protected Zone Plus", query: "gpz-plus" },
   { group: "Intelsat", query: "intelsat" },
   { group: "SES", query: "ses" },
-  { group: "Intelsat", query: "intelsat" },
+
   { group: "Iridium", query: "iridium" },
   { group: "Iridium NEXT", query: "iridium-NEXT" },
   { group: "Starlink", query: "starlink" },
   { group: "OneWeb", query: "oneweb" },
-  { group: "Iridium", query: "iridium" },
+
   { group: "Orbcomm", query: "orbcomm" },
   { group: "Globalstar", query: "globalstar" },
   { group: "Swarm", query: "swarm" },
@@ -42,7 +42,7 @@ export const satFilters = [
   { group: "Experimental Comm", query: "x-comm" },
   { group: "Other Comm", query: "other-comm" },
   { group: "SatNOGS", query: "satnogs" },
-  { group: "Iridium", query: "iridium" },
+
   { group: "Gorizont", query: "gorizont" },
   { group: "Raduga", query: "raduga" },
   { group: "Molniya", query: "molniya" },

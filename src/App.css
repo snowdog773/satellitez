@@ -4,7 +4,7 @@ body {
   color: #fff;
 }
 h1 {
-  margin: auto;
+  /* margin: auto; */
 }
 #header-wrapper {
   width: 100%;
@@ -26,4 +26,23 @@ h1 {
 #globe .scene-container {
   display: block;
   margin: 0 auto;
+}
+.satListDropDown {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+}
+.filterList {
+  position: absolute;
+  display: none;
+}
+
+.satListDropDown:hover .filterList {
+  display: block;
+  margin: 0;
+  list-style: none;
+  width: 100px;
+  top: 0;
+  z-index: 2;
+  right: 0;
 }

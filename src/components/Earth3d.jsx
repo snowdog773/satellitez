@@ -4,9 +4,12 @@ import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { satPositionCalc } from "../utils/satPositionCalc";
+import { setTimePassed } from "../redux/reducers/timerSlice";
 
 const Earth3d = () => {
+  const dispatch = useDispatch();
   const rawTle = useSelector((state) => state.data.iss);
+  const multiplier = useSelector((state) => state.timer.multiplier);
 
   const [satPosition, setSatPostition] = useState();
   // const [minutes, setMinutes] = useState(0);
@@ -17,7 +20,7 @@ const Earth3d = () => {
     const globe = globeAttributes.current;
     // Auto-rotate
     globe.controls().autoRotate = true;
-    globe.controls().autoRotateSpeed = 0.35;
+    globe.controls().autoRotateSpeed = 0.35; //0.35;
   }, []);
 
   useEffect(() => {
@@ -29,16 +32,15 @@ const Earth3d = () => {
           outputArray.push(output);
         }
       });
-
+      dispatch(setTimePassed(minutes.current));
       setSatPostition(outputArray);
-      minutes.current += 0.1;
-    }, 1000);
+      minutes.current += multiplier / (60 * 20); //the 20 adjusts for thr loop running 20 times a second
+    }, 50);
     return () => clearInterval(timer);
   }, [minutes.current]);
 
   return (
     <>
-      <p>Minutes passed :{Math.floor(minutes.current)}</p>
       <Globe
         ref={globeAttributes}
         // showGraticules={true}
@@ -54,6 +56,7 @@ const Earth3d = () => {
         // labelLat="lat"
         // objectThreeObject={satObject}
       />
+      <p>Minutes passed :{Math.floor(minutes.current)}</p>
     </>
   );
 };

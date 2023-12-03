@@ -10,7 +10,9 @@ const initialState = {
 };
 
 export const getData = createAsyncThunk("data/callAPI", async () => {
-  const api = await axios.get("https://someAPI.com");
+  const api = await axios.get(
+    `http://localhost:6001/getSatellites/${satFilter}`
+  );
   const array = api.data;
   return array;
 });

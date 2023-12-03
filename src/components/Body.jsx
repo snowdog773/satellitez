@@ -4,27 +4,31 @@ import Earth3d from "./Earth3d";
 import GlobeControls from "./GlobeControls";
 import { useDispatch, useSelector } from "react-redux";
 import { setIss } from "../redux/reducers/dataSlice";
+import Filter from "./Filter";
+import Timer from "./Timer";
 
 const Body = () => {
   const dispatch = useDispatch();
   const issTrue = useSelector((state) => state.data.issTrue);
-
+  const satFilter = useSelector((state) => state.filter.query);
+  console.log(satFilter, "satfilter");
   useEffect(() => {
-    const getISSData = async () => {
+    const getSatData = async () => {
       const { data } = await axios.get(
-        "http://localhost:6001/getSatellites/last30days"
+        `http://localhost:6001/getSatellites/${satFilter.query}`
       );
       console.log(data);
       dispatch(setIss(data));
     };
 
-    getISSData();
-  }, []);
+    getSatData();
+  }, [satFilter]);
 
   return (
     <>
       <div id="globe">{issTrue && <Earth3d />}</div>
       <GlobeControls />
+      <Timer />
     </>
   );
 };
