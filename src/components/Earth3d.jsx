@@ -10,6 +10,9 @@ const Earth3d = () => {
   const dispatch = useDispatch();
   const rawTle = useSelector((state) => state.data.iss);
   const multiplier = useSelector((state) => state.timer.multiplier);
+  const globeRotationSpeed = useSelector(
+    (state) => state.timer.globeRotationSpeed
+  );
 
   const [satPosition, setSatPostition] = useState();
   // const [minutes, setMinutes] = useState(0);
@@ -20,8 +23,8 @@ const Earth3d = () => {
     const globe = globeAttributes.current;
     // Auto-rotate
     globe.controls().autoRotate = true;
-    globe.controls().autoRotateSpeed = 0.35; //0.35;
-  }, []);
+    globe.controls().autoRotateSpeed = globeRotationSpeed; //0.35;
+  }, [globeRotationSpeed]);
 
   useEffect(() => {
     const timer = setInterval(() => {

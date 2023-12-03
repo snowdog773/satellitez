@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTimeMultiplier } from "../redux/reducers/timerSlice";
+import {
+  setTimeMultiplier,
+  setGlobeRotationSpeed,
+} from "../redux/reducers/timerSlice";
 
 const Timer = () => {
   const dispatch = useDispatch();
@@ -16,6 +19,10 @@ const Timer = () => {
   const timeMultiplierButtonHandler = (factor) => {
     dispatch(setTimeMultiplier(factor));
   };
+
+  const globeSpeedButtonHandler = (speed) => {
+    dispatch(setGlobeRotationSpeed(speed));
+  };
   return (
     <>
       <p>Time : {renderTime.toLocaleString("en-GB")}</p>
@@ -25,6 +32,17 @@ const Timer = () => {
       <button onClick={() => timeMultiplierButtonHandler(100)}>x100</button>
       <button onClick={() => timeMultiplierButtonHandler(500)}>x500</button>
       <button onClick={() => timeMultiplierButtonHandler(1000)}>x1000</button>
+
+      <label for="globeSpeed">Globe Rotation Speed</label>
+      <input
+        id="globeSpeed"
+        type="range"
+        min="0"
+        max="10"
+        onChange={(e) => {
+          globeSpeedButtonHandler(e.target.value);
+        }}
+      ></input>
     </>
   );
 };
