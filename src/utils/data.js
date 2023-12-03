@@ -1,3 +1,5 @@
+export const urlStem = "http://localhost:6001";
+
 export const satFilters = [
   { group: "Last 30 Days Launches", query: "last-30-days" }, //
   { group: "Space Stations", query: "stations" }, //

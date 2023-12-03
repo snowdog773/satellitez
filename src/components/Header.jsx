@@ -1,5 +1,5 @@
 import burger from "../assets/burger.svg";
-
+import hiddenBurger from "../assets/hidden-burger.svg";
 const Header = () => {
   const openMenu = () => {
     console.log("menu open");
@@ -7,11 +7,14 @@ const Header = () => {
   return (
     <>
       <div id="header-wrapper">
-        <h1>Satellitez</h1>
+        <img src={hiddenBurger} className="hidden-burger"></img>
+        <h1>SATELLITEZ</h1>
+
         <div id="menu" onClick={openMenu}>
           <img src={burger}></img>
         </div>
       </div>
+      <p>Live Satellite Tracker</p>
     </>
   );
 };

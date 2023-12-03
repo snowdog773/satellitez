@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIss } from "../redux/reducers/dataSlice";
 import Filter from "./Filter";
 import Timer from "./Timer";
-
+import { urlStem } from "../utils/data";
 const Body = () => {
   const dispatch = useDispatch();
   const issTrue = useSelector((state) => state.data.issTrue);
@@ -15,7 +15,7 @@ const Body = () => {
   useEffect(() => {
     const getSatData = async () => {
       const { data } = await axios.get(
-        `http://localhost:6001/getSatellites/${satFilter.query}`
+        `${urlStem}/getSatellites/${satFilter.query}`
       );
       console.log(data);
       dispatch(setIss(data));

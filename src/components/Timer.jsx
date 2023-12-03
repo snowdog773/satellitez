@@ -33,7 +33,7 @@ const Timer = () => {
       <button onClick={() => timeMultiplierButtonHandler(500)}>x500</button>
       <button onClick={() => timeMultiplierButtonHandler(1000)}>x1000</button>
 
-      <label for="globeSpeed">Globe Rotation Speed</label>
+      <label htmlFor="globeSpeed">Globe Rotation Speed</label>
       <input
         id="globeSpeed"
         type="range"

@@ -1,10 +1,32 @@
+@font-face {
+  font-family: padyakke;
+  src: url(./fonts/PadyakkeExpandedOne-Regular.ttf);
+}
+
+@font-face {
+  font-family: stint;
+  src: url(./fonts/StintUltraExpanded-Regular.ttf);
+}
+
+@font-face {
+  font-family: hedvig;
+  src: url(./fonts/HedvigLettersSans-Regular.ttf);
+}
+
 body {
   background-color: #001;
-
-  color: #fff;
+  font-family: hedvig;
+  min-height: 110vh;
+  color: #ddd;
 }
+
+/* HEADER */
 h1 {
-  /* margin: auto; */
+  font-family: stint;
+  text-shadow: #bbb 2px 5px 15px;
+  position: relative;
+  letter-spacing: 4px;
+  margin: 0;
 }
 #header-wrapper {
   width: 100%;
@@ -14,35 +36,69 @@ h1 {
 
   text-align: center;
 }
+
+.hidden-burger {
+  width: 25px;
+  height: 25px;
+  margin: 8px;
+  display: none;
+}
+
+#header-wrapper + p {
+  font-family: padyakke;
+
+  color: rgb(56, 240, 56);
+  z-index: 2;
+  text-align: center;
+}
 #menu {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
+  margin: 8px;
 }
 
 #menu img {
   width: 100%;
 }
 
-#globe .scene-container {
-  display: block;
-  margin: 0 auto;
-}
 .satListDropDown {
   position: relative;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
+  width: 100%;
+  font-size: 1.2rem;
 }
-.filterList {
+
+.satListDropDown > div {
+  padding: 0 10px;
+}
+
+.satListDropDown .filterList {
   position: absolute;
   display: none;
 }
 
-.satListDropDown:hover .filterList {
+.current-group {
+  position: relative;
+}
+
+.current-group:hover .filterList {
   display: block;
   margin: 0;
   list-style: none;
   width: 100px;
-  top: 0;
+
   z-index: 2;
-  right: 0;
+}
+
+/* GLOBE */
+#globe .scene-container {
+  display: block;
+  margin: 0 auto;
+}
+
+@media (min-width: 500px) {
+  .hidden-burger {
+    display: block;
+  }
 }
