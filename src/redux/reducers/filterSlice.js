@@ -1,6 +1,12 @@
+const random = Math.round(Math.random());
+const randArray = [
+  { group: "Brightest / Most Visible", query: "visual" }, //render a random choice of data first time
+  { group: "OneWeb", query: "oneweb" },
+];
+console.log(random);
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  query: { group: "Brightest / Most Visible", query: "visual" },
+  query: randArray[random],
 };
 
 export const filterSlice = createSlice({

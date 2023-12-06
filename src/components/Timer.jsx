@@ -25,7 +25,7 @@ const Timer = () => {
   };
   return (
     <>
-      <p>Time : {renderTime.toLocaleString("en-GB")}</p>
+      <p>Simulation time : {renderTime.toLocaleString("en-GB")}</p>
       <button onClick={() => timeMultiplierButtonHandler(1)}>x1</button>
       <button onClick={() => timeMultiplierButtonHandler(10)}>x10</button>
       <button onClick={() => timeMultiplierButtonHandler(50)}>x50</button>

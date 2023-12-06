@@ -14,7 +14,7 @@ const Header = () => {
           <img src={burger}></img>
         </div>
       </div>
-      <p>Live Satellite Tracker</p>
+      <p>Live Satellite Tracking</p>
     </>
   );
 };

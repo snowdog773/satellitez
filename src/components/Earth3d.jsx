@@ -8,7 +8,8 @@ import { setTimePassed } from "../redux/reducers/timerSlice";
 
 const Earth3d = () => {
   const dispatch = useDispatch();
-  const rawTle = useSelector((state) => state.data.iss);
+  const rawTle = useSelector((state) => state.data.data);
+
   const multiplier = useSelector((state) => state.timer.multiplier);
   const globeRotationSpeed = useSelector(
     (state) => state.timer.globeRotationSpeed
