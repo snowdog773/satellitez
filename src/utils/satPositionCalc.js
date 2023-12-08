@@ -33,9 +33,11 @@ export const satPositionCalc = (input, minutes) => {
   const latDeg = (posGd.latitude * 180) / Math.PI;
   const altitude = posGd.height;
   return {
-    name: `${input.name} longitude : ${longDeg.toFixed(
+    name: `${input.name} <br> longitude : ${longDeg.toFixed(
       2
-    )} \n latitude : ${latDeg.toFixed(2)} \n altitude ${altitude.toFixed(2)}km`,
+    )} <br> latitude : ${latDeg.toFixed(2)} <br> altitude ${altitude.toFixed(
+      2
+    )}km`,
     lat: latDeg,
     lng: longDeg,
     alt: altitude / 6371,

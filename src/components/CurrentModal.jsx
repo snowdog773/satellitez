@@ -1,14 +1,21 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import ModalGroup from "./ModalGroup";
+import ModalSingle from "./ModalSingle";
 const CurrentModal = () => {
+  const data = useSelector((state) => state.data.data);
+  console.log(data[0]);
   return (
     <>
-      <div>current modal</div>
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-      </ul>
+      {data.length > 0 && (
+        <div className="modal">
+          {data.length > 1 ? (
+            <ModalGroup rawData={data} />
+          ) : (
+            <ModalSingle rawData={data} />
+          )}
+        </div>
+      )}
     </>
   );
 };

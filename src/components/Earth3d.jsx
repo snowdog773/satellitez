@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { satPositionCalc } from "../utils/satPositionCalc";
 import { setTimePassed } from "../redux/reducers/timerSlice";
+import { setTelemetry } from "../redux/reducers/telemetrySlice";
 
 const Earth3d = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,10 @@ const Earth3d = () => {
       });
       dispatch(setTimePassed(minutes.current));
       setSatPostition(outputArray);
+      const { alt, lng, lat } = outputArray[0];
+      const telData = { alt, lng, lat };
+      dispatch(setTelemetry(telData));
+
       minutes.current += multiplier / (60 * 20); //the 20 adjusts for thr loop running 20 times a second
     }, 50);
     return () => clearInterval(timer);
