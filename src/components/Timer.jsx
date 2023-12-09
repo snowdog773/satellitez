@@ -12,7 +12,7 @@ const Timer = () => {
   const multiplier = useSelector((state) => state.timer.multiplier);
 
   const initTime = useRef(new Date(Date.now()));
-
+  const globeSpeed = useSelector((state) => state.timer.globeRotationSpeed);
   const renderTime = new Date(
     initTime.current.getTime() + timeOffset * 60 * 1000
   );
@@ -37,8 +37,9 @@ const Timer = () => {
       <input
         id="globeSpeed"
         type="range"
-        min="0"
+        min="-10"
         max="10"
+        value={globeSpeed}
         onChange={(e) => {
           globeSpeedButtonHandler(e.target.value);
         }}

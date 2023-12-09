@@ -94,14 +94,31 @@ h1 {
   text-align: center;
 }
 .modal {
-  transition: 0.5s;
+  transition: 0.5s ease-in-out;
   position: absolute;
   z-index: 2;
-  width: 100vw;
-  background: red;
+  width: 90vw;
+
+  margin: auto;
+  left: 0;
+  right: 0;
+  padding: 20px 5%;
+  max-height: 80vh;
+  background: #0009;
+  border-top: 2px solid #aaa;
+  border-bottom: 2px solid #aaa;
+  text-align: justify;
+  font-size: 1.5rem;
+  overflow-y: auto;
+
+  /* color: green; */
+  font-family: stint;
+}
+.modal > div {
+  background: #0009;
 }
 .modalOff {
-  top: -200px;
+  top: -1700px;
 }
 
 .modalOn {

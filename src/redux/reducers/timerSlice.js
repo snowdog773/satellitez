@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   timePassed: 0,
   multiplier: 1,
-  globeRotationSpeed: 1,
+  globeRotationSpeed: 0,
 };
 
 export const timerSlice = createSlice({
