@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import modalReducer from "./reducers/modalSlice";
 import dataReducer from "./reducers/dataSlice";
 import filterReducer from "./reducers/filterSlice";
 import timerReducer from "./reducers/timerSlice";
@@ -11,5 +11,6 @@ export const store = configureStore({
     filter: filterReducer,
     timer: timerReducer,
     telemetry: telemetryReducer,
+    modalHeight: modalReducer,
   },
 });

@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import ModalGroup from "./ModalGroup";
 import ModalSingle from "./ModalSingle";
-const CurrentModal = () => {
-  const data = useSelector((state) => state.data.data);
 
+const CurrentModal = ({ modalHandler }) => {
+  const data = useSelector((state) => state.data.data);
+  const modalHeight = useSelector((state) => state.modalHeight.modalHeight);
   return (
     <>
       {data.length > 0 && (
@@ -12,7 +13,14 @@ const CurrentModal = () => {
           {data.length > 1 ? (
             <ModalGroup rawData={data} />
           ) : (
-            <ModalSingle rawData={data} />
+            <>
+              <ModalSingle rawData={data} />
+              <div
+                className="modalClickLayer"
+                style={{ height: modalHeight - 30 }}
+                onClick={() => modalHandler()}
+              ></div>
+            </>
           )}
         </div>
       )}

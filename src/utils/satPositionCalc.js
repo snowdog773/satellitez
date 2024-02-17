@@ -41,6 +41,7 @@ export const satPositionCalc = (input, minutes) => {
     lat: latDeg,
     lng: longDeg,
     alt: altitude / 6371,
+
     //alt is calculated as a fraction of earth radius 6371
   };
 };

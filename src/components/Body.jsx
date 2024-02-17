@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Home";
+import About from "./About";
 import axios from "axios";
-import Earth3d from "./Earth3d";
-import GlobeControls from "./GlobeControls";
 import { useDispatch, useSelector } from "react-redux";
 import { setData } from "../redux/reducers/dataSlice";
-import Filter from "./Filter";
-import Timer from "./Timer";
 import { urlStem } from "../utils/data";
+import TrackingPage from "./TrackingPage";
 const Body = () => {
   const dispatch = useDispatch();
-  const dataTrue = useSelector((state) => state.data.dataTrue);
+
   const satFilter = useSelector((state) => state.filter.query);
   console.log(satFilter, "satfilter");
   useEffect(() => {
@@ -26,9 +26,11 @@ const Body = () => {
 
   return (
     <>
-      <div id="globe">{dataTrue && <Earth3d />}</div>
-      <GlobeControls />
-      <Timer />
+      <Routes>
+        <Route path="/tracking" element={<TrackingPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
     </>
   );
 };

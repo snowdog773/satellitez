@@ -3,6 +3,7 @@ import axios from "axios";
 import { urlStem } from "../utils/data";
 
 export const apiNoradCall = async (input) => {
+  console.log(input);
   try {
     const result = await axios.get(`${urlStem}/noradSearch/${input}`);
 

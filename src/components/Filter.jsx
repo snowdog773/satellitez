@@ -5,7 +5,6 @@ const Filter = () => {
   const dispatch = useDispatch();
   //   const issTrue = useSelector((state) => state.data.issTrue);
   const clickHandler = (id) => {
-    console.log(id, "clicked");
     dispatch(setFilter(id));
   };
   const sortedSatFilters = satFilters.sort(function (a, b) {

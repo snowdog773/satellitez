@@ -45,14 +45,14 @@ const NoradSearch = () => {
           placeholder="search by Name or Norad ID"
           onChange={(e) => changeHandler(e.target.value)}
         />
+        <ul className="dropList">
+          {dropList.map((e, i) => (
+            <li key={i} onClick={() => listClickHandler(e.noradId)}>
+              {e.name}
+            </li>
+          ))}
+        </ul>
       </form>
-      <ul className="dropList">
-        {dropList.map((e, i) => (
-          <li key={i} onClick={() => listClickHandler(e.noradId)}>
-            {e.name}
-          </li>
-        ))}
-      </ul>
     </>
   );
 };

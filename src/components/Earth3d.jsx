@@ -2,11 +2,11 @@ import Globe from "react-globe.gl";
 import globeWrap from "../assets/globewrap.jpg";
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { setData } from "../redux/reducers/dataSlice";
 import { satPositionCalc } from "../utils/satPositionCalc";
 import { setTimePassed } from "../redux/reducers/timerSlice";
 import { setTelemetry } from "../redux/reducers/telemetrySlice";
-
+import { apiNoradCall } from "../utils/apiNoradCall";
 const Earth3d = () => {
   const dispatch = useDispatch();
   const rawTle = useSelector((state) => state.data.data);
@@ -29,11 +29,15 @@ const Earth3d = () => {
   }, [globeRotationSpeed]);
 
   useEffect(() => {
+    let rate;
+    rawTle.length > 1000 ? (rate = 1000) : (rate = 50); // reduce renders to 1000ms for data sets over 1000
     const timer = setInterval(() => {
       let outputArray = [];
+
       rawTle.forEach((e) => {
         if (e.name) {
           const output = satPositionCalc(e, minutes.current); //converts the raw tle data to lat lng alt
+          output.noradId = e.noradId; // append noradId for clicking 3d elements
           outputArray.push(output);
         }
       });
@@ -44,13 +48,22 @@ const Earth3d = () => {
         const telData = { alt, lng, lat };
         dispatch(setTelemetry(telData));
       }
-      minutes.current += multiplier / (60 * 20); //the 20 adjusts for thr loop running 20 times a second
-    }, 50);
+      minutes.current += multiplier / ((60 * 1000) / rate); //the 20 adjusts for thr loop running 20 times a second
+    }, rate);
     return () => clearInterval(timer);
   }, [minutes.current]);
 
+  const globeClickHandler = async (input) => {
+    const data = await apiNoradCall(input.noradId);
+
+    dispatch(setData(data));
+  };
+  const aspectRatio = window.innerWidth / window.innerHeight;
   return (
     <>
+      {/* <p id="minutes-passed">
+        Time passed :{Math.floor(minutes.current)} minutes
+      </p> */}
       <Globe
         ref={globeAttributes}
         // showGraticules={true}
@@ -60,13 +73,14 @@ const Earth3d = () => {
         objectLng="lng"
         objectAltitude="alt"
         objectLabel="name"
-        width={window.innerWidth * 0.8}
-        height={window.innerWidth * 0.8}
+        width={window.innerWidth}
+        height={window.innerHeight * 0.6}
+        // rendererSize={window.innerHeight * 0.6}
+        onObjectClick={(e) => globeClickHandler(e)}
         // labelsData={satPosition}
         // labelLat="lat"
         // objectThreeObject={satObject}
       />
-      <p>Minutes passed :{Math.floor(minutes.current)}</p>
     </>
   );
 };

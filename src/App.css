@@ -32,8 +32,9 @@
 body {
   background-color: #001;
   font-family: hedvig;
-  min-height: 110vh;
+  max-height: 100vh;
   color: #ddd;
+  overflow: hidden;
 }
 
 /* HEADER */
@@ -81,38 +82,60 @@ h1 {
 }
 
 .currentlyDisplaying {
-  display: flex;
   position: relative;
-  font-size: 1.2rem;
-  background: #666;
+  font-size: 1.8rem;
+  background: #001;
   padding: 3px;
-  z-index: 10;
+  z-index: 2;
+  cursor: pointer;
 }
 
-.currentlyDisplaying > div {
-  width: 50%;
+.currentlyDisplayingInner {
+  display: flex;
+  justify-content: center;
+}
+
+.currentlyDisplayingInner > div {
+  text-align: center;
+  margin: 10px 10px 0 10px;
+}
+
+.currentlyDisplayingFooter {
+  font-size: 1rem;
   text-align: center;
 }
 .modal {
   transition: 0.5s ease-in-out;
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   width: 90vw;
-
+  overflow-x: hidden;
   margin: auto;
   left: 0;
   right: 0;
-  padding: 20px 5%;
-  max-height: 80vh;
+
+  padding: 0 5%;
+  max-height: 70vh;
   background: #0009;
-  border-top: 2px solid #aaa;
-  border-bottom: 2px solid #aaa;
+  /* border-top: 2px solid #aaa;
+  border-bottom: 2px solid #aaa; */
   text-align: justify;
   font-size: 1.5rem;
   overflow-y: auto;
 
   /* color: green; */
   font-family: stint;
+}
+.modalClickLayer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 2;
+  opacity: 0;
+  overflow: hidden;
 }
 .modal > div {
   background: #0009;
@@ -122,13 +145,49 @@ h1 {
 }
 
 .modalOn {
-  top: 100px;
+  top: 112px;
+}
+div.singleDetails {
+  padding: 20px 5px;
+  border-bottom: white 2px solid;
+  line-height: 2.5rem;
 }
 
+div.singleDetails > h2 {
+  text-align: center;
+  margin-top: 20px;
+}
+div.singleDetails > h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+ul.detailLinks {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+ul.detailLinks a {
+  text-transform: uppercase;
+  margin: 5px;
+  font-size: 1.6rem;
+}
+
+ul.detailLinks a:hover {
+  text-decoration: underline;
+}
 .filterWrapper {
   display: flex;
   font-size: 1.2rem;
+
   justify-content: space-around;
+  z-index: 3;
+  position: relative;
+  background: #001;
+}
+
+.filterList {
+  position: absolute;
 }
 
 .satListDropDown {
@@ -142,30 +201,19 @@ h1 {
 
 .current-group {
   position: relative;
+  background-color: grey;
+  border: 1px white solid;
+  width: 200px;
+  height: 20px;
+  text-align: center;
+  cursor: pointer;
 }
 
-.current-group:hover .filterList {
+.current-group .filterList {
   display: block;
   margin: 0;
   list-style: none;
-  width: 100px;
-
-  z-index: 2;
-}
-
-/* SEARCH BOX */
-
-input.searchBox {
-  position: relative;
-  font-size: 1.45rem;
-  border-radius: 0;
-  border: 1px red;
-}
-.dropList {
-  position: absolute;
-
-  top: 117px;
-  width: 202px;
+  width: 200px;
   text-align: center;
   max-height: 80vh;
   background: #3337;
@@ -173,14 +221,110 @@ input.searchBox {
   overflow-y: auto;
 }
 
+.current-group .filterList li {
+  border-bottom: 1px solid #fff5;
+  cursor: pointer;
+}
+.current-group .filterList li:hover {
+  background: white;
+  color: black;
+}
+/* SEARCH BOX */
+
+form.searchBox > input::placeholder {
+  opacity: 0.5;
+  color: white;
+}
+form.searchBox {
+  position: relative;
+}
+form.searchBox > input {
+  position: relative;
+  font-size: 1.45rem;
+  border-radius: 0;
+  border: 1px solid white;
+  width: 200px;
+  background-color: grey;
+  color: white;
+  height: 20px;
+  margin-bottom: 0;
+}
+.dropList {
+  position: absolute;
+  margin: 0;
+  width: 200px;
+  text-align: center;
+  max-height: 80vh;
+  background: #3337;
+  z-index: 2;
+  overflow-y: auto;
+}
+
+.dropList li {
+  border-bottom: 1px solid #fff5;
+  cursor: pointer;
+}
+
+.dropList li:hover {
+  background: white;
+  color: black;
+}
+
 /* GLOBE */
+#minutes-passed {
+  text-align: center;
+  display: block;
+  margin: 20px auto;
+  background: #fff0;
+}
+
 #globe .scene-container {
   display: block;
   margin: 0 auto;
+  height: 80vh;
 }
 
+.timer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.timer-inner {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+.timer-inner div {
+  margin: 10px;
+}
+
+#time-controls button:hover {
+  background: #ddd;
+}
+
+#time-controls .activeButton {
+  background: black;
+  color: white;
+}
+.copyright {
+  text-align: center;
+}
+.absoluteFooter {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 @media (min-width: 500px) {
   .hidden-burger {
     display: block;
+  }
+}
+
+@media (min-width: 800px) {
+  .timer-inner {
+    flex-direction: row;
   }
 }
