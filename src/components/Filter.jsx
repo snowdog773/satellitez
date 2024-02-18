@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../redux/reducers/filterSlice";
 const Filter = () => {
   const dispatch = useDispatch();
-  //   const issTrue = useSelector((state) => state.data.issTrue);
+
   const clickHandler = (id) => {
     dispatch(setFilter(id));
   };
@@ -21,6 +21,7 @@ const Filter = () => {
     <>
       <ul className="filterList">
         {sortedSatFilters.map((e) => {
+          console.log(e);
           return <li onClick={() => clickHandler(e)}>{e.group}</li>;
         })}
       </ul>

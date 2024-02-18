@@ -4,7 +4,6 @@ import {
   setTimeMultiplier,
   setGlobeRotationSpeed,
 } from "../redux/reducers/timerSlice";
-import Footer from "./Footer";
 
 const Timer = () => {
   const dispatch = useDispatch();

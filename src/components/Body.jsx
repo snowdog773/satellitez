@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
+import Events from "./Events";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setData } from "../redux/reducers/dataSlice";
@@ -30,6 +31,7 @@ const Body = () => {
         <Route path="/tracking" element={<TrackingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
+        <Route path="/events" element={<Events />} />
       </Routes>
     </>
   );

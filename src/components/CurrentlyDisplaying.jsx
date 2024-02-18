@@ -7,9 +7,9 @@ const CurrentlyDisplaying = () => {
   const data = useSelector((state) => state.data.data);
   const group = useSelector((state) => state.filter.query.group);
   const modalHandler = () => {
-    console.log("modal trigger");
     modal ? setModal(false) : setModal(true);
   };
+
   return (
     <>
       <div
@@ -19,7 +19,7 @@ const CurrentlyDisplaying = () => {
         <div className="currentlyDisplayingInner">
           <div>Currently Displaying : </div>
 
-          <div>{data && data[0]?.name}</div>
+          <div>{data.length > 1 ? group : data[0]?.name}</div>
         </div>
         {data.length === 1 && (
           <div className="currentlyDisplayingFooter">Click for details</div>

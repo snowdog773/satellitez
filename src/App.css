@@ -63,7 +63,7 @@ h1 {
   display: none;
 }
 
-#header-wrapper + p {
+#header-tagline {
   font-family: padyakke;
   position: relative;
   color: rgb(56, 240, 56);
@@ -327,4 +327,39 @@ form.searchBox > input {
   .timer-inner {
     flex-direction: row;
   }
+}
+
+/* ///////////////DROP MENU/////////////////////////////////// */
+
+ul.main-menu {
+  position: absolute;
+  color: white;
+  background: #0009;
+  z-index: 5;
+  width: 100%;
+  text-align: center;
+}
+ul.main-menu li {
+  padding: 20px;
+  font-size: 2.5rem;
+  border-bottom: 1px solid white;
+}
+
+.main-menu-show {
+  top: 50px;
+  transition: 0.3s;
+}
+
+.main-menu-hide {
+  top: -70%;
+  transition: 0.5s;
+}
+.menu-hidden-layer {
+  z-index: 4;
+  background: #0000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
