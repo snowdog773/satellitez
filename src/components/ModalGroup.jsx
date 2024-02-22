@@ -1,5 +1,5 @@
 const ModalGroup = () => {
-  return <>I am a group</>;
+  return <></>;
 };
 
 export default ModalGroup;

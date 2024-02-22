@@ -17,6 +17,7 @@ const Header = () => {
           <img src={burger}></img>
         </div>
       </div>
+      <p id="header-tagline">Live Satellite Tracking</p>
       {isMenuOpen && (
         <div className="menu-hidden-layer" onClick={menuToggle}></div>
       )}
@@ -37,11 +38,9 @@ const Header = () => {
         </li>
 
         <li>
-          <Link to="/events">VISIBLE EVENTS</Link>
+          <Link to="/events">YOUR OVERFLIGHTS</Link>
         </li>
       </ul>
-
-      <p id="header-tagline">Live Satellite Tracking</p>
     </>
   );
 };

@@ -75,6 +75,7 @@ const Earth3d = () => {
         objectLabel="name"
         width={window.innerWidth}
         height={window.innerHeight * 0.6}
+        backgroundColor="#000"
         // rendererSize={window.innerHeight * 0.6}
         onObjectClick={(e) => globeClickHandler(e)}
         // labelsData={satPosition}

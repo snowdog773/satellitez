@@ -1,0 +1,105 @@
+.large-earth {
+  position: absolute;
+  z-index: -1;
+}
+
+.home-container {
+  background-image: url("../assets/earth-large.jpg");
+  background-position: top center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  min-height: 90vh;
+}
+
+.inner-container {
+  background: #0009;
+  min-height: 90vh;
+}
+
+.welcome-text {
+  font-size: 1.8rem;
+  text-align: center;
+  padding-top: 30px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.welcome-text p:first-child {
+  font-size: 2.5rem;
+}
+.graphic {
+  display: block;
+  margin: 10px auto;
+  width: 200px;
+  height: 190px;
+  border-radius: 20px;
+  border: 1px white solid;
+}
+.link-blurb {
+  width: 200px;
+  display: block;
+  margin: auto;
+  text-align: center;
+  font-size: 1.4rem;
+}
+/* CSS */
+.button-6 {
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  display: block;
+  font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 20px auto;
+  min-height: 3rem;
+  padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  width: auto;
+}
+
+.button-6:hover,
+.button-6:focus {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: rgba(255, 255, 255, 0.3) 0 4px 12px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.button-6:active {
+  background-color: #f0f0f1;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
+}
+
+.link-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+@media (min-width: 600px) {
+  .link-wrapper {
+    flex-direction: row;
+    margin: 40px auto;
+    max-width: 1000px;
+  }
+  .link-blurb {
+    min-height: 65px;
+  }
+}

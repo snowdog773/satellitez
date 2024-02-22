@@ -14,6 +14,7 @@ const CurrentlyDisplaying = () => {
     <>
       <div
         className="currentlyDisplaying"
+        style={{ minHeight: "60px" }} //stop globe being pushed down when click for details appears
         onClick={data.length === 1 ? modalHandler : undefined}
       >
         <div className="currentlyDisplayingInner">

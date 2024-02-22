@@ -1,0 +1,19 @@
+.about-content {
+  width: 80%;
+  margin: 50px auto;
+  text-align: justify;
+}
+
+.about-content > p,
+.about-content > h2 {
+  margin-top: 30px;
+}
+
+.about-content > h3 {
+  margin-top: 10px;
+}
+@media (min-width: 800px) {
+  .about-content {
+    width: 50%;
+  }
+}

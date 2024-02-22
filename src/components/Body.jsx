@@ -12,7 +12,7 @@ const Body = () => {
   const dispatch = useDispatch();
 
   const satFilter = useSelector((state) => state.filter.query);
-  console.log(satFilter, "satfilter");
+
   useEffect(() => {
     const getSatData = async () => {
       const { data } = await axios.get(

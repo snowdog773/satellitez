@@ -10,9 +10,7 @@ const CurrentModal = ({ modalHandler }) => {
     <>
       {data.length > 0 && (
         <div>
-          {data.length > 1 ? (
-            <ModalGroup rawData={data} />
-          ) : (
+          {data.length === 1 && (
             <>
               <ModalSingle rawData={data} />
               <div

@@ -1,16 +1,16 @@
 @font-face {
   font-family: padyakke;
-  src: url(./fonts/PadyakkeExpandedOne-Regular.ttf);
+  src: url(../fonts/PadyakkeExpandedOne-Regular.ttf);
 }
 
 @font-face {
   font-family: stint;
-  src: url(./fonts/StintUltraExpanded-Regular.ttf);
+  src: url(../fonts/StintUltraExpanded-Regular.ttf);
 }
 
 @font-face {
   font-family: hedvig;
-  src: url(./fonts/HedvigLettersSans-Regular.ttf);
+  src: url(../fonts/HedvigLettersSans-Regular.ttf);
 }
 /* width */
 ::-webkit-scrollbar {
@@ -19,7 +19,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #001;
+  box-shadow: inset 0 0 5px #000;
   border-radius: 10px;
 }
 
@@ -30,11 +30,11 @@
 }
 
 body {
-  background-color: #001;
+  background-color: #000;
   font-family: hedvig;
   max-height: 100vh;
   color: #ddd;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* HEADER */
@@ -53,7 +53,7 @@ h1 {
   z-index: 10;
   position: relative;
   text-align: center;
-  background: #001;
+  background: #000;
 }
 
 .hidden-burger {
@@ -69,7 +69,7 @@ h1 {
   color: rgb(56, 240, 56);
   z-index: 3;
   text-align: center;
-  background: #001;
+  background: #000;
 }
 #menu {
   width: 25px;
@@ -84,7 +84,7 @@ h1 {
 .currentlyDisplaying {
   position: relative;
   font-size: 1.8rem;
-  background: #001;
+  background: #000;
   padding: 3px;
   z-index: 2;
   cursor: pointer;
@@ -183,7 +183,7 @@ ul.detailLinks a:hover {
   justify-content: space-around;
   z-index: 3;
   position: relative;
-  background: #001;
+  background: #000;
 }
 
 .filterList {
@@ -313,9 +313,10 @@ form.searchBox > input {
   text-align: center;
 }
 .absoluteFooter {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
+  background: #000;
 }
 @media (min-width: 500px) {
   .hidden-burger {
@@ -362,4 +363,27 @@ ul.main-menu li {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+@media (min-width: 800px) {
+  ul.main-menu {
+    position: static;
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid white;
+    margin-bottom: 5px;
+    /* margin: 10px; */
+  }
+  ul.main-menu li {
+    padding: 0 0 5px 0;
+    border: 0;
+    font-size: 1.5rem;
+  }
+  #menu img {
+    display: none;
+  }
+
+  .menu-hidden-layer {
+    display: none;
+  }
 }

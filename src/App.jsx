@@ -1,10 +1,10 @@
 import Header from "./components/Header";
 import Body from "./components/Body";
 
-import "./generic.css";
-import "./App.css";
-
-import SubHeader from "./components/SubHeader";
+import "./styles/generic.css";
+import "./styles/App.css";
+import "./styles/home.css";
+import "./styles/about.css";
 import Footer from "./components/Footer";
 
 function App() {
