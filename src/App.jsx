@@ -5,6 +5,7 @@ import "./styles/generic.css";
 import "./styles/App.css";
 import "./styles/home.css";
 import "./styles/about.css";
+import "./styles/events.css";
 import Footer from "./components/Footer";
 
 function App() {

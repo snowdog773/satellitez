@@ -1,11 +1,15 @@
 import { satFilters } from "../utils/data";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilter } from "../redux/reducers/filterSlice";
-const Filter = () => {
+import {
+  setEventFilter,
+  setIsLastSearchSingle,
+} from "../redux/reducers/eventsSlice";
+const EventFilter = () => {
   const dispatch = useDispatch();
 
   const clickHandler = (id) => {
-    dispatch(setFilter(id));
+    dispatch(setEventFilter(id));
+    dispatch(setIsLastSearchSingle(false));
   };
   const sortedSatFilters = satFilters.sort(function (a, b) {
     if (a.group < b.group) {
@@ -21,11 +25,11 @@ const Filter = () => {
     <>
       <ul className="filterList">
         {sortedSatFilters.map((e) => {
-          return <li onClick={() => clickHandler(e)}>{e.group}</li>;
+          return <li onClick={() => clickHandler(e.query)}>{e.group}</li>;
         })}
       </ul>
     </>
   );
 };
 
-export default Filter;
+export default EventFilter;

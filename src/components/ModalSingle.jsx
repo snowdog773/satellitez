@@ -29,6 +29,7 @@ const ModalSingle = ({ rawData }) => {
     console.log(ref.current.clientHeight);
     dispatch(setModalHeight(ref.current.clientHeight));
   }, [noradId]);
+
   return (
     <div ref={ref}>
       <div className="singleDetails">

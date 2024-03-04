@@ -4,6 +4,7 @@ import dataReducer from "./reducers/dataSlice";
 import filterReducer from "./reducers/filterSlice";
 import timerReducer from "./reducers/timerSlice";
 import telemetryReducer from "./reducers/telemetrySlice";
+import eventDataReducer from "./reducers/eventsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     timer: timerReducer,
     telemetry: telemetryReducer,
     modalHeight: modalReducer,
+    eventData: eventDataReducer,
   },
 });

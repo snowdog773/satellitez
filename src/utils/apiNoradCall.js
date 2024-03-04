@@ -3,7 +3,6 @@ import axios from "axios";
 import { urlStem } from "../utils/data";
 
 export const apiNoradCall = async (input) => {
-  console.log(input);
   try {
     const result = await axios.get(`${urlStem}/noradSearch/${input}`);
 
@@ -11,7 +10,6 @@ export const apiNoradCall = async (input) => {
       console.log("Norad Id not found");
       return [];
     } else {
-      console.log(result.data);
       return result.data;
     }
   } catch (err) {

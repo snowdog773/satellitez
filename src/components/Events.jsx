@@ -1,17 +1,38 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import EventItem from "./EventItem";
+import EventFilter from "./EventFilter";
+import { apiNoradCall } from "../utils/apiNoradCall";
 import { getLocation } from "../utils/getlocation";
 import { urlStem } from "../utils/data";
 import { calcMasterArray } from "../utils/calcMasterArray";
+import { getNightTimeArray } from "../utils/getNightTimeArray";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setEventData,
+  setEventFilter,
+  setSingleSearch,
+  setIsLastSearchSingle,
+} from "../redux/reducers/eventsSlice";
 const Events = () => {
+  const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useState();
-  const [visibleSet, setVisibleSet] = useState();
 
+  const [periodHours, setPeriodHours] = useState(1);
+  const [nightsArray, setNightsArray] = useState([]);
+  const [nightFilter, setNightFilter] = useState(false);
+  const [calcTime, setCalcTime] = useState(0);
+  ////////////////////////////////////////////////////////
+  const visibleSet = useSelector((state) => state.eventData.eventData);
+  const groupFilter = useSelector((state) => state.eventData.eventFilter);
+  const singleSearch = useSelector((state) => state.eventData.singleSearch);
+  const isLastSearchSingle = useSelector(
+    (state) => state.eventData.isLastSearchSingle
+  );
   ////////////////////USER GEOLOCATION////////////////////////////
   const callGeolocation = async () => {
     const { coords } = await getLocation();
 
-    console.log(coords);
     setCoordinates({
       latitude: coords.latitude,
       longitude: coords.longitude,
@@ -29,64 +50,151 @@ const Events = () => {
   );
   const getDaylightHours = async () => {
     const daylight = await axios.get(
-      `https://api.sunrisesunset.io/json?lat=38.907192&lng=-77.036873&date_start=${refTime.getFullYear()}-${
+      `https://api.sunrisesunset.io/json?lat=${coordinates.latitude}&lng=$${
+        coordinates.longitude
+      }&date_start=${refTime.getFullYear()}-${
         refTime.getMonth() + 1
       }-${refTime.getDate()}&date_end=${refTime10DaysAfter.getFullYear()}-${
         refTime10DaysAfter.getMonth() + 1
       }-${refTime10DaysAfter.getDate()}`
     );
-    console.log(daylight);
+
+    const nights = getNightTimeArray(daylight.data.results);
+    nights.pop();
+
+    setNightsArray(nights);
   };
 
   useEffect(() => {
-    getDaylightHours();
-  }, []);
+    coordinates && getDaylightHours();
+  }, [coordinates]);
   /////////////////////////////////////////////////
 
-  ///////////////CALCULATE OVERFLIGHTS//////////////////////////
-  const getVisibleSet = async () => {
-    const { data } = await axios.get(`${urlStem}/getSatellites/visual`);
+  ////////////////HANDLERS/////////////////////////
 
-    const masterArray = calcMasterArray(data, coordinates, 1440);
-    setVisibleSet(masterArray);
-    console.log(masterArray);
+  const singleSearchHandler = async (input) => {
+    const data = await apiNoradCall(input);
+
+    if (data.length > 0) {
+      calcVisible(data);
+      dispatch(setSingleSearch(input));
+      dispatch(setIsLastSearchSingle(true));
+    }
+    // dispatch(setEventFilter(data));
   };
 
-  const minutesToDateTime = (mins) => {
-    const options = { dateStyle: "long", timeStyle: "short" };
-    return new Date(refTime.getTime() + mins * 60000).toLocaleString(options);
+  ///////////////CALCULATE OVERFLIGHTS//////////////////////////
+
+  // const getGroupData = async (group) => {
+  //   try {
+  //     const { data } = await axios.get(`${urlStem}/getSatellites/${group}`);
+
+  //     calcVisible(data);
+  //     dispatch(setEventFilter(data));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   filterHandler("visual"), [];
+  // });
+
+  const calcVisible = async (input = "visual") => {
+    let result;
+    try {
+      if (typeof input !== "object") {
+        const { data } = await axios.get(`${urlStem}/getSatellites/${input}`);
+        result = data;
+      } else {
+        result = input;
+      }
+      // calcVisible(data);
+      // dispatch(setEventFilter(data));
+      const masterArray = calcMasterArray(
+        result,
+        coordinates,
+        60 * periodHours
+      );
+
+      dispatch(setEventData(masterArray.orderedMasterArray));
+      setCalcTime(masterArray.calcTime);
+      console.log(masterArray);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
-    coordinates && getVisibleSet(); //get brightest and visible set TLE
-  }, [coordinates]);
+    console.log("filter useeffect ran");
+    coordinates && calcVisible(groupFilter);
+  }, [coordinates, periodHours, groupFilter]);
   //////////////////////////////////////////////////////////////////////////
+  let outputArray = [];
+
+  if (visibleSet?.length > 0) {
+    if (!nightFilter) {
+      outputArray = [...visibleSet];
+    } else {
+      visibleSet.forEach((e, i) => {
+        const time = new Date(refTime.getTime() + e.data[0].minutes * 60000);
+        nightsArray.some((f) => f.dusk < time && f.dawn > time) &&
+          outputArray.push(e);
+      });
+    }
+  }
   return (
     <>
-      <h2>Events</h2>
-      {visibleSet &&
-        visibleSet.map((e, i, arr) => (
-          <div className="visibleItem">
-            <h3>Object : {e.data[0].name}</h3>
+      <div className="home-container">
+        <div className="inner-container">
+          <div>
+            <h2 className="event-heading">Events</h2>
             <p>
-              {" "}
-              Max Elevation : {e.maxElevation.toFixed(0)}
-              <sup>o</sup>
+              {visibleSet?.length} passes calculated in {calcTime} milliseconds
             </p>
-            <p>
-              Visible from {minutesToDateTime(e.data[0].minutes)} until{" "}
-              {minutesToDateTime(e.data[0].minutes + e.data.length - 1)}
-            </p>
-            <p>
-              Rises from {e.data[0].azimuth.toFixed(0)}
-              <sup>o</sup>
-            </p>
-            <p>
-              Sets at {e.data[e.data.length - 1].azimuth.toFixed(0)}
-              <sup>o</sup>
-            </p>
+            <div className="controls">
+              <label htmlFor="single">
+                {" "}
+                Single Object Search (name or Norad ID)
+              </label>
+              <input
+                id="single"
+                onChange={(e) => singleSearchHandler(e.target.value)}
+              />
+              <label htmlFor="predictionDays"> Show passes for the next </label>
+              <input
+                type="number"
+                id="predictionDays"
+                min="1"
+                max="24"
+                onChange={(e) => setPeriodHours(e.target.value)}
+              ></input>
+              <span> hours</span>
+              <div>
+                <button
+                  onClick={() =>
+                    nightFilter ? setNightFilter(false) : setNightFilter(true)
+                  }
+                >
+                  {nightFilter ? "Night Filter Off" : "Night Filter On"}
+                </button>
+              </div>
+              <div>
+                <EventFilter />
+              </div>
+            </div>
+            <div className="event-content">
+              {outputArray.length > 0 ? (
+                outputArray.map((e, i, arr) => (
+                  <EventItem data={e} refTime={refTime} />
+                ))
+              ) : (
+                <div>show spinner</div>
+              )}
+            </div>
           </div>
-        ))}
+        </div>
+      </div>
     </>
   );
 };

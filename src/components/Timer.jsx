@@ -65,6 +65,12 @@ const Timer = () => {
             >
               x1000
             </button>
+            <button
+              className={multiplier === 5000 ? "activeButton" : undefined}
+              onClick={() => timeMultiplierButtonHandler(5000)}
+            >
+              x5000
+            </button>
           </div>
           <div id="rotateControls">
             <label htmlFor="globeSpeed">Globe Rotation Speed</label>

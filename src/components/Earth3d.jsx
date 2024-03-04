@@ -7,6 +7,7 @@ import { satPositionCalc } from "../utils/satPositionCalc";
 import { setTimePassed } from "../redux/reducers/timerSlice";
 import { setTelemetry } from "../redux/reducers/telemetrySlice";
 import { apiNoradCall } from "../utils/apiNoradCall";
+import { current } from "@reduxjs/toolkit";
 const Earth3d = () => {
   const dispatch = useDispatch();
   const rawTle = useSelector((state) => state.data.data);
@@ -15,6 +16,7 @@ const Earth3d = () => {
   const globeRotationSpeed = useSelector(
     (state) => state.timer.globeRotationSpeed
   );
+  const currentGroup = useSelector((state) => state.filter.query);
 
   const [satPosition, setSatPostition] = useState();
   // const [minutes, setMinutes] = useState(0);
@@ -34,7 +36,7 @@ const Earth3d = () => {
     const timer = setInterval(() => {
       let outputArray = [];
 
-      rawTle.forEach((e) => {
+      rawTle?.forEach((e) => {
         if (e.name) {
           const output = satPositionCalc(e, minutes.current); //converts the raw tle data to lat lng alt
           output.noradId = e.noradId; // append noradId for clicking 3d elements
@@ -54,9 +56,16 @@ const Earth3d = () => {
   }, [minutes.current]);
 
   const globeClickHandler = async (input) => {
-    const data = await apiNoradCall(input.noradId);
+    if (
+      currentGroup.query === "1999-025" ||
+      currentGroup.query === "cosmos-2251-debris"
+    ) {
+      console.log("telemetry not available");
+    } else {
+      const data = await apiNoradCall(input.noradId);
 
-    dispatch(setData(data));
+      dispatch(setData(data));
+    }
   };
   const aspectRatio = window.innerWidth / window.innerHeight;
   return (

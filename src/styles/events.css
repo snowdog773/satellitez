@@ -1,0 +1,38 @@
+.event-content {
+  width: 80%;
+  margin: 50px auto;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+}
+
+.visibleItem {
+  margin: 50px auto;
+  width: 100%;
+  text-align: center;
+}
+
+.visibleItem > h3 {
+  margin: 40px;
+}
+
+.event-heading {
+  width: 80%;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.controls {
+  width: 80%;
+  margin: 50px auto;
+}
+
+@media (min-width: 1200px) {
+  .event-content {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  .visibleItem {
+    width: 50%;
+  }
+}
