@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Bars } from "react-loader-spinner";
 import EventItem from "./EventItem";
 import EventFilter from "./EventFilter";
 import { apiNoradCall } from "../utils/apiNoradCall";
@@ -12,13 +13,15 @@ import {
   setEventData,
   setEventFilter,
   setSingleSearch,
-  setIsLastSearchSingle,
+  setHours,
 } from "../redux/reducers/eventsSlice";
+import NoradEventSearch from "./NoradEventSearch.jsx";
+import { satFilters } from "../utils/data";
 const Events = () => {
   const dispatch = useDispatch();
   const [coordinates, setCoordinates] = useState();
 
-  const [periodHours, setPeriodHours] = useState(1);
+  // const [periodHours, setPeriodHours] = useState(1);
   const [nightsArray, setNightsArray] = useState([]);
   const [nightFilter, setNightFilter] = useState(false);
   const [calcTime, setCalcTime] = useState(0);
@@ -26,9 +29,7 @@ const Events = () => {
   const visibleSet = useSelector((state) => state.eventData.eventData);
   const groupFilter = useSelector((state) => state.eventData.eventFilter);
   const singleSearch = useSelector((state) => state.eventData.singleSearch);
-  const isLastSearchSingle = useSelector(
-    (state) => state.eventData.isLastSearchSingle
-  );
+  const periodHours = useSelector((state) => state.eventData.hours);
   ////////////////////USER GEOLOCATION////////////////////////////
   const callGeolocation = async () => {
     const { coords } = await getLocation();
@@ -77,8 +78,7 @@ const Events = () => {
 
     if (data.length > 0) {
       calcVisible(data);
-      dispatch(setSingleSearch(input));
-      dispatch(setIsLastSearchSingle(true));
+      dispatch(setEventFilter(data));
     }
     // dispatch(setEventFilter(data));
   };
@@ -149,47 +149,65 @@ const Events = () => {
         <div className="inner-container">
           <div>
             <h2 className="event-heading">Events</h2>
-            <p>
-              {visibleSet?.length} passes calculated in {calcTime} milliseconds
-            </p>
+
             <div className="controls">
-              <label htmlFor="single">
-                {" "}
-                Single Object Search (name or Norad ID)
-              </label>
-              <input
-                id="single"
-                onChange={(e) => singleSearchHandler(e.target.value)}
-              />
-              <label htmlFor="predictionDays"> Show passes for the next </label>
-              <input
-                type="number"
-                id="predictionDays"
-                min="1"
-                max="24"
-                onChange={(e) => setPeriodHours(e.target.value)}
-              ></input>
-              <span> hours</span>
-              <div>
+              <div className="eventFilterWrapper">
+                <NoradEventSearch /> <EventFilter />
+              </div>
+              <div className="eventFilterWrapper">
                 <button
                   onClick={() =>
                     nightFilter ? setNightFilter(false) : setNightFilter(true)
                   }
                 >
-                  {nightFilter ? "Night Filter Off" : "Night Filter On"}
+                  {nightFilter
+                    ? "Disable Night Filter"
+                    : "Activate Night Filter"}
                 </button>
-              </div>
-              <div>
-                <EventFilter />
+                <div>
+                  <label htmlFor="predictionDays">
+                    {" "}
+                    Show passes for the next{" "}
+                  </label>
+                  <input
+                    type="number"
+                    id="predictionDays"
+                    min="1"
+                    max="24"
+                    value={periodHours}
+                    onChange={(e) => dispatch(setHours(e.target.value))}
+                  ></input>
+                  <span> hours</span>
+                </div>
               </div>
             </div>
+
+            <p className="eventCalcTime">
+              Currently displaying :{" "}
+              {groupFilter && typeof groupFilter === "string" ? (
+                <>{satFilters.find((e) => e.query === groupFilter).group}</>
+              ) : (
+                <>{groupFilter[0].name}</>
+              )}
+            </p>
+
+            <p className="eventCalcTime">
+              {visibleSet?.length} passes calculated in {calcTime} milliseconds
+            </p>
             <div className="event-content">
               {outputArray.length > 0 ? (
                 outputArray.map((e, i, arr) => (
                   <EventItem data={e} refTime={refTime} />
                 ))
               ) : (
-                <div>show spinner</div>
+                <Bars
+                  height="80"
+                  width="80"
+                  radius="9"
+                  color="red"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{ display: "block", margin: " 100px auto" }}
+                />
               )}
             </div>
           </div>

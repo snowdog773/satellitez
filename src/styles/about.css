@@ -4,6 +4,10 @@
   text-align: justify;
 }
 
+a {
+  text-decoration: underline;
+}
+
 .about-content > p {
   margin-top: 30px;
 }

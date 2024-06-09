@@ -10,7 +10,7 @@ export const degreesToCompass = (degree) => {
       return "North-East";
       break;
     case degree > 56.25 && degree < 78.75:
-      return "East=North-East";
+      return "East-North-East";
       break;
     case degree > 78.75 && degree < 101.25:
       return "East";

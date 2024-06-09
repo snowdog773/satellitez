@@ -346,6 +346,10 @@ ul.main-menu li {
   border-bottom: 1px solid white;
 }
 
+ul.main-menu a {
+  text-decoration: none;
+}
+
 .main-menu-show {
   top: 50px;
   transition: 0.3s;
@@ -363,6 +367,11 @@ ul.main-menu li {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.spacer-50px {
+  width: 100vw;
+  height: 50px;
 }
 
 @media (min-width: 800px) {

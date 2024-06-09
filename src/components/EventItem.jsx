@@ -37,37 +37,6 @@ const EventItem = ({ data, refTime }) => {
       <div className="visibleItem">
         <h3>{name}</h3>
         <h4>Norad ID : {noradId}</h4>
-        <ul>
-          <li>Date : {getDate(minutes)} </li>
-          <li>Visible from : {minutesToDateTime(minutes)} </li>
-          <li>
-            Visible until : {minutesToDateTime(minutes + data.data.length - 1)}
-          </li>
-          <li>
-            {" "}
-            Max Elevation : {data.maxElevation.toFixed(0)} <sup>o</sup>
-          </li>
-          <li>
-            {" "}
-            Rises : {degreesToCompass(azimuth)} {azimuth.toFixed(0)}{" "}
-            <sup>o</sup>{" "}
-          </li>
-          <li>
-            Sets :{" "}
-            {degreesToCompass(
-              data.data[data.data.length - 1].azimuth.toFixed(0)
-            )}{" "}
-            {data.data[data.data.length - 1].azimuth.toFixed(0)}
-            <sup>o</sup>
-          </li>
-          <li>Altitude : {alt.toFixed(0)}km</li>
-        </ul>
-        <Link to="/tracking">
-          {" "}
-          <button className="button-6" onClick={() => trackHandler()}>
-            TRACK
-          </button>
-        </Link>
         <div style={{ width: "60%", margin: "auto" }}>
           <CChart
             type="line"
@@ -117,6 +86,37 @@ const EventItem = ({ data, refTime }) => {
             }}
           />
         </div>{" "}
+        <ul>
+          <li>Date : {getDate(minutes)} </li>
+          <li>Visible from : {minutesToDateTime(minutes)} </li>
+          <li>
+            Visible until : {minutesToDateTime(minutes + data.data.length - 1)}
+          </li>
+          <li>
+            {" "}
+            Max Elevation : {data.maxElevation.toFixed(0)} <sup>o</sup>
+          </li>
+          <li>
+            {" "}
+            Rises : {degreesToCompass(azimuth)} {azimuth.toFixed(0)}{" "}
+            <sup>o</sup>{" "}
+          </li>
+          <li>
+            Sets :{" "}
+            {degreesToCompass(
+              data.data[data.data.length - 1].azimuth.toFixed(0)
+            )}{" "}
+            {data.data[data.data.length - 1].azimuth.toFixed(0)}
+            <sup>o</sup>
+          </li>
+          <li>Altitude : {alt.toFixed(0)}km</li>
+        </ul>
+        <Link to="/tracking">
+          {" "}
+          <button className="button-6" onClick={() => trackHandler()}>
+            TRACK
+          </button>
+        </Link>
       </div>
     </>
   );

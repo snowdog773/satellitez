@@ -1,6 +1,6 @@
 .event-content {
   width: 80%;
-  margin: 50px auto;
+  margin: 0 auto;
   text-align: justify;
   display: flex;
   flex-direction: column;
@@ -27,6 +27,16 @@
   margin: 50px auto;
 }
 
+.eventCalcTime {
+  text-align: center;
+}
+
+.eventFilterWrapper {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.2rem;
+  margin: 20px;
+}
 @media (min-width: 1200px) {
   .event-content {
     flex-wrap: wrap;

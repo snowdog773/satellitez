@@ -4,7 +4,7 @@ const initialState = {
   eventData: [],
   singleSearch: [],
   eventFilter: "visual",
-  isLastSearchSingle: false,
+  hours: 6,
 };
 
 export const eventDataSlice = createSlice({
@@ -20,15 +20,11 @@ export const eventDataSlice = createSlice({
     setEventFilter: (state, action) => {
       state.eventFilter = action.payload;
     },
-    setIsLastSearchSingle: (state, action) => {
-      state.isLastSearchSingle = action.payload;
+    setHours: (state, action) => {
+      state.hours = action.payload;
     },
   },
 });
-export const {
-  setEventData,
-  setSingleSearch,
-  setEventFilter,
-  setIsLastSearchSingle,
-} = eventDataSlice.actions;
+export const { setEventData, setSingleSearch, setEventFilter, setHours } =
+  eventDataSlice.actions;
 export default eventDataSlice.reducer;

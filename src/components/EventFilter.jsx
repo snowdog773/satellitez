@@ -1,15 +1,15 @@
 import { satFilters } from "../utils/data";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setEventFilter,
-  setIsLastSearchSingle,
-} from "../redux/reducers/eventsSlice";
+import { setEventFilter } from "../redux/reducers/eventsSlice";
 const EventFilter = () => {
   const dispatch = useDispatch();
-
+  const [showDropList, setShowDropList] = useState(false);
+  const dropListHandler = () => {
+    showDropList ? setShowDropList(false) : setShowDropList(true);
+  };
   const clickHandler = (id) => {
     dispatch(setEventFilter(id));
-    dispatch(setIsLastSearchSingle(false));
   };
   const sortedSatFilters = satFilters.sort(function (a, b) {
     if (a.group < b.group) {
@@ -23,11 +23,16 @@ const EventFilter = () => {
   console.log(sortedSatFilters);
   return (
     <>
-      <ul className="filterList">
-        {sortedSatFilters.map((e) => {
-          return <li onClick={() => clickHandler(e.query)}>{e.group}</li>;
-        })}
-      </ul>
+      <div className="current-group" onClick={() => dropListHandler()}>
+        Select By Group
+        {showDropList && (
+          <ul className="filterList">
+            {sortedSatFilters.map((e) => {
+              return <li onClick={() => clickHandler(e.query)}>{e.group}</li>;
+            })}
+          </ul>
+        )}
+      </div>
     </>
   );
 };
