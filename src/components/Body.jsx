@@ -32,6 +32,7 @@ const Body = () => {
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/*" element={<Home />} />
       </Routes>
     </>
   );

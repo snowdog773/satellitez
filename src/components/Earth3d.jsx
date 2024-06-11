@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setData } from "../redux/reducers/dataSlice";
 import { satPositionCalc } from "../utils/satPositionCalc";
-import { setTimePassed } from "../redux/reducers/timerSlice";
+import { setTimePassed, setTimeMultiplier } from "../redux/reducers/timerSlice";
 import { setTelemetry } from "../redux/reducers/telemetrySlice";
 import { apiNoradCall } from "../utils/apiNoradCall";
 import { current } from "@reduxjs/toolkit";
@@ -23,6 +23,12 @@ const Earth3d = () => {
   const minutes = useRef(0);
   const globeAttributes = useRef();
 
+  //reset time multiplier to 1 when component renders
+
+  useEffect(() => {
+    dispatch(setTimeMultiplier(1));
+  }, []);
+
   useEffect(() => {
     const globe = globeAttributes.current;
     // Auto-rotate
@@ -35,7 +41,7 @@ const Earth3d = () => {
     rawTle.length > 1000 ? (rate = 1000) : (rate = 50); // reduce renders to 1000ms for data sets over 1000
     const timer = setInterval(() => {
       let outputArray = [];
-
+      // console.log(rawTle);
       rawTle?.forEach((e) => {
         if (e.name) {
           const output = satPositionCalc(e, minutes.current); //converts the raw tle data to lat lng alt

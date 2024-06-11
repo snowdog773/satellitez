@@ -1,4 +1,5 @@
 import epochTimeCalc from "./epochTimeCalc";
+import * as satellite from "satellite.js";
 export const satPositionCalc = (input, minutes) => {
   const tleArray = input.tle.split("\r\n");
 

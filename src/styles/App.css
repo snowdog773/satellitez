@@ -179,11 +179,16 @@ ul.detailLinks a:hover {
 .filterWrapper {
   display: flex;
   font-size: 1.2rem;
+  flex-direction: column;
 
   justify-content: space-around;
   z-index: 3;
   position: relative;
   background: #000;
+}
+
+.filterWrapper > * {
+  margin: 5px auto;
 }
 
 .filterList {
@@ -305,6 +310,17 @@ form.searchBox > input {
   background: #ddd;
 }
 
+#time-controls {
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+@media (min-width: 450px) {
+  #time-controls {
+    font-size: inherit;
+  }
+}
+
 #time-controls .activeButton {
   background: black;
   color: white;
@@ -321,6 +337,10 @@ form.searchBox > input {
 @media (min-width: 500px) {
   .hidden-burger {
     display: block;
+  }
+
+  .filterWrapper {
+    flex-direction: row;
   }
 }
 
