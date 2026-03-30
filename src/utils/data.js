@@ -1,4 +1,4 @@
-export const urlStem = "https://backend.satellitez.co.uk";
+export const urlStem = "https://api.satellitez.co.uk";
 
 export const satFilters = [
   { group: "Last 30 Days Launches", query: "last-30-days" }, //
