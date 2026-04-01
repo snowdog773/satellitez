@@ -47,17 +47,17 @@ const Events = () => {
   //////////////GET SUNRISE SUNSET LOCAL TIMES????????????????????????
   const refTime = new Date();
   const refTime10DaysAfter = new Date(
-    refTime.getTime() + 10 * 24 * 60 * 60 * 1000
+    refTime.getTime() + 10 * 24 * 60 * 60 * 1000,
   );
   const getDaylightHours = async () => {
     const daylight = await axios.get(
-      `https://api.sunrisesunset.io/json?lat=${coordinates.latitude}&lng=$${
+      `https://api.sunrisesunset.io/json?lat=${coordinates.latitude}&lng=${
         coordinates.longitude
       }&date_start=${refTime.getFullYear()}-${
         refTime.getMonth() + 1
       }-${refTime.getDate()}&date_end=${refTime10DaysAfter.getFullYear()}-${
         refTime10DaysAfter.getMonth() + 1
-      }-${refTime10DaysAfter.getDate()}`
+      }-${refTime10DaysAfter.getDate()}`,
     );
 
     const nights = getNightTimeArray(daylight.data.results);
@@ -114,7 +114,7 @@ const Events = () => {
       const masterArray = calcMasterArray(
         result,
         coordinates,
-        60 * periodHours
+        60 * periodHours,
       );
 
       dispatch(setEventData(masterArray.orderedMasterArray));
