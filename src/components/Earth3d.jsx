@@ -1,5 +1,5 @@
 import Globe from "react-globe.gl";
-import globeWrap from "../assets/globewrap.jpg";
+import globeWrap from "../assets/earth-blue-marble.jpg";
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setData } from "../redux/reducers/dataSlice";
@@ -7,14 +7,43 @@ import { satPositionCalc } from "../utils/satPositionCalc";
 import { setTimePassed, setTimeMultiplier } from "../redux/reducers/timerSlice";
 import { setTelemetry } from "../redux/reducers/telemetrySlice";
 import { apiNoradCall } from "../utils/apiNoradCall";
+import * as THREE from "three";
 import { current } from "@reduxjs/toolkit";
+// Visible dot (the satellite)
+const satDotGeom = new THREE.SphereGeometry(0.4, 12, 12);
+const satMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+// Clickable hitbox (invisible)
+const hitBoxGeom = new THREE.SphereGeometry(2, 12, 12); // Adjust 1.2 to your preference
+const invisibleMaterial = new THREE.MeshBasicMaterial({
+  transparent: true,
+  opacity: 0,
+  depthWrite: false,
+});
+
+/**
+ * Function reference for the Globe component
+ * Creates a visible dot inside an invisible clickable shell
+ */
+const createSatelliteObject = () => {
+  const group = new THREE.Group();
+
+  const visibleDot = new THREE.Mesh(satDotGeom, satMaterial);
+  const hitBox = new THREE.Mesh(hitBoxGeom, invisibleMaterial);
+
+  group.add(visibleDot);
+  group.add(hitBox);
+
+  return group;
+};
+
 const Earth3d = () => {
   const dispatch = useDispatch();
   const rawTle = useSelector((state) => state.data.data);
 
   const multiplier = useSelector((state) => state.timer.multiplier);
   const globeRotationSpeed = useSelector(
-    (state) => state.timer.globeRotationSpeed
+    (state) => state.timer.globeRotationSpeed,
   );
   const currentGroup = useSelector((state) => state.filter.query);
 
@@ -74,6 +103,7 @@ const Earth3d = () => {
     }
   };
   const aspectRatio = window.innerWidth / window.innerHeight;
+
   return (
     <>
       {/* <p id="minutes-passed">
@@ -88,6 +118,7 @@ const Earth3d = () => {
         objectLng="lng"
         objectAltitude="alt"
         objectLabel="name"
+        objectThreeObject={createSatelliteObject()}
         width={window.innerWidth}
         height={window.innerHeight * 0.6}
         backgroundColor="#000"

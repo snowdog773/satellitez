@@ -1,109 +1,117 @@
-.large-earth {
-  position: absolute;
-  z-index: -1;
-}
-
+/* Container & Background */
 .home-container {
   background-image: url("../assets/earth-large.jpg");
-  background-position: top center;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  min-height: 90vh;
+  background-position: center 20%; /* Shows more of the Earth's curve */
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
 .inner-container {
-  background: #0009;
-  min-height: 90vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
 }
 
+/* Typography - Smaller & Cleaner */
 .welcome-text {
-  font-size: 1.8rem;
+  margin-bottom: 50px;
   text-align: center;
-  padding-top: 30px;
-  width: 60%;
-  margin: 0 auto;
+  color: #ffffff;
 }
 
 .welcome-text p:first-child {
-  font-size: 2.5rem;
-}
-.graphic {
-  display: block;
-  margin: 10px auto;
-  width: 200px;
-  height: 190px;
-  border-radius: 20px;
-  border: 1px white solid;
-}
-.link-blurb {
-  width: 200px;
-  display: block;
-  margin: auto;
-  text-align: center;
-  font-size: 1.4rem;
-}
-/* CSS */
-.button-6 {
-  align-items: center;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 0.25rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-  box-sizing: border-box;
-  color: rgba(0, 0, 0, 0.85);
-  cursor: pointer;
-  display: block;
-  font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica,
-    Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 1.25;
-  margin: 20px auto;
-  min-height: 3rem;
-  padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
-  position: relative;
-  text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-
-  width: auto;
+  font-size: 1.8rem; /* Significant reduction */
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: 0.9;
 }
 
-.button-6:hover,
-.button-6:focus {
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: rgba(255, 255, 255, 0.3) 0 4px 12px;
-  color: rgba(0, 0, 0, 0.65);
-}
-
-.button-6:active {
-  background-color: #f0f0f1;
-  border-color: rgba(0, 0, 0, 0.15);
-  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
-  color: rgba(0, 0, 0, 0.65);
-  transform: translateY(0);
-}
-
+/* Card Wrapper - Constrained Width */
 .link-wrapper {
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  width: 100%;
+}
+
+/* Individual Card - Fixed Narrow Width */
+.link-wrapper > div {
+  width: 280px; /* Controlled width to prevent "stretching" */
 }
 
 .link-wrapper a {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
   text-decoration: none;
+  height: 100%;
+  transition: all 0.3s ease;
 }
 
-@media (min-width: 600px) {
-  .link-wrapper {
-    flex-direction: row;
-    margin: 40px auto;
-    max-width: 1000px;
-  }
-  .link-blurb {
-    min-height: 65px;
+.link-wrapper a:hover {
+  /* background: rgba(255, 255, 255, 0.07); */
+  border-color: rgba(255, 255, 255, 0.4);
+  /* transform: translateY(-5px); */
+}
+
+/* Image Styling - Inset & Clean */
+.graphic {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Content inside Card */
+.link-blurb {
+  color: #bbb;
+  font-size: 0.95rem; /* Smaller text */
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 300;
+}
+
+/* Minimalist Button Style */
+.button-6 {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: auto; /* Keeps buttons aligned */
+  transition: all 0.2s ease;
+}
+
+.link-wrapper a:hover .button-6 {
+  background: #fff;
+  color: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .link-wrapper > div {
+    width: 100%;
+    max-width: 320px;
   }
 }

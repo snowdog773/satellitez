@@ -1,4 +1,4 @@
-import trackingGraphic from "../assets/tracking-graphic.png";
+import trackingGraphic from "../assets/telescope.png";
 import nightSky from "../assets/night-sky.png";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
