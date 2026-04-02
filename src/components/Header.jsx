@@ -40,6 +40,9 @@ const Header = () => {
         <li>
           <Link to="/events">YOUR OVERFLIGHTS</Link>
         </li>
+        <li>
+          <Link to="https://buymeacoffee.com/snowdog773">BUY ME A COFFEE</Link>
+        </li>
       </ul>
     </>
   );

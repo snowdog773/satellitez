@@ -14,11 +14,14 @@ const About = () => {
               currently being tracked by Norad. It also features a handy
               predictor to give details of all bright objects flying overhead
               that are likely to be visible to the naked eye for any position on
-              Earth. This app is free to use, however if you are using this
-              regularly please consider making a donation to my Patreon. As you
-              might imagine, there is a considerable amount of data crunching
-              going on behind the scenes with associated server costs. Your
-              donation will help keep this project live and fund future
+              Earth. This app is free to use, however if you are use and enjoy
+              the app, please consider{" "}
+              <a href="https://buymeacoffee.com/snowdog773">
+                Buying me a Coffee
+              </a>
+              . As you might imagine, there is a considerable amount of data
+              crunching going on behind the scenes with associated server costs.
+              Your donation will help keep this project live and fund future
               development.
             </p>
             <h2>How To Use</h2>
